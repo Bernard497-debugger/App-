@@ -84,21 +84,17 @@ function displayApps(apps) {
             <div class="category">${app.category}</div>
             <div class="rating">${'★'.repeat(app.rating)}${'☆'.repeat(5 - app.rating)}</div>
             <p>${app.description}</p>
-            <button onclick="installApp(${app.id}, this)">Install</button>
+            <button onclick="installApp(${app.id})">Install</button>
         `;
         container.appendChild(card);
     });
 }
 
-async function installApp(appId, btn) {
-    btn.disabled = true;
-    btn.textContent = "Installing...";
-    await new Promise(r => setTimeout(r, 1500)); // simulate progress
+async function installApp(appId) {
+    // Real backend call without simulation
     const response = await fetch(`/api/install/${appId}`, { method: 'POST' });
     const result = await response.json();
     alert(result.message);
-    btn.disabled = false;
-    btn.textContent = "Install";
 }
 
 // Search
