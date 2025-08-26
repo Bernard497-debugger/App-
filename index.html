@@ -5,119 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Khali App Store</title>
 <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f2f6fc;
-    margin: 0;
-    padding: 0;
-  }
-
-  header {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-    padding: 25px 0;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  }
-
-  header h1 {
-    margin: 0;
-    font-size: 2.2em;
-    letter-spacing: 1px;
-  }
-
-  .search-bar {
-    margin: 25px auto;
-    text-align: center;
-  }
-
-  .search-bar input {
-    padding: 12px 15px;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    transition: all 0.3s ease;
-  }
-
-  .search-bar input:focus {
-    outline: none;
-    border-color: #0072ff;
-    box-shadow: 0 0 10px rgba(0,114,255,0.3);
-  }
-
-  .apps-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    padding: 20px;
-  }
-
-  .app-card {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    width: 220px;
-    text-align: center;
-    padding: 20px 15px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .app-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-  }
-
-  .app-card img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 25px;
-    margin-bottom: 10px;
-  }
-
-  .app-card h3 {
-    margin: 10px 0 5px;
-    font-size: 1.2em;
-    color: #333;
-  }
-
-  .app-card .category {
-    font-size: 0.85em;
-    color: #0072ff;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-
-  .app-card .rating {
-    margin: 5px 0 15px;
-    color: #ffb400;
-  }
-
-  .app-card button {
-    padding: 10px 20px;
-    border: none;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-
-  .app-card button:hover {
-    background: linear-gradient(135deg, #0072ff, #00c6ff);
-  }
-
-  footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #e0e6ed;
-    color: #555;
-    margin-top: 30px;
-  }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f2f6fc; margin:0; padding:0;}
+header {background:linear-gradient(135deg,#00c6ff,#0072ff); color:white; padding:25px 0; text-align:center; box-shadow:0 4px 8px rgba(0,0,0,0.2);}
+header h1{margin:0;font-size:2.2em;letter-spacing:1px;}
+.search-bar {margin:25px auto;text-align:center;}
+.search-bar input {padding:12px 15px;width:80%;max-width:400px;border-radius:25px;border:1px solid #ccc;font-size:1em;transition:0.3s;}
+.search-bar input:focus {outline:none;border-color:#0072ff;box-shadow:0 0 10px rgba(0,114,255,0.3);}
+.category-tabs {text-align:center;margin-bottom:20px;}
+.category-tabs button {margin:0 5px;padding:8px 15px;border:none;border-radius:20px;background:#0072ff;color:white;cursor:pointer;transition:0.3s;}
+.category-tabs button:hover, .category-tabs button.active {background:#00c6ff;}
+.apps-container {display:flex; flex-wrap:wrap; justify-content:center; gap:25px; padding:20px;}
+.app-card {background:white; border-radius:15px; box-shadow:0 6px 15px rgba(0,0,0,0.1); width:220px; text-align:center; padding:20px 15px; transition:0.2s;}
+.app-card:hover {transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.15);}
+.app-card img {width:100px;height:100px; border-radius:25px; margin-bottom:10px;}
+.app-card h3{margin:10px 0 5px;color:#333;}
+.app-card .category{font-size:0.85em;color:#0072ff;font-weight:bold;margin-bottom:5px;}
+.app-card .rating{margin:5px 0 15px;color:#ffb400;}
+.app-card p{font-size:0.95em;color:#666;margin-bottom:15px;}
+.app-card button{padding:10px 20px;border:none;border-radius:25px;background:linear-gradient(135deg,#00c6ff,#0072ff);color:white;cursor:pointer;font-weight:bold;transition:0.3s;}
+.app-card button:hover{background:linear-gradient(135deg,#0072ff,#00c6ff);}
+.pagination {text-align:center;margin:20px;}
+.pagination button {margin:0 3px;padding:5px 12px;border:none;border-radius:5px;background:#0072ff;color:white;cursor:pointer;}
+.pagination button.active {background:#00c6ff;}
+footer {text-align:center;padding:20px;background:#e0e6ed;color:#555;margin-top:30px;}
 </style>
 </head>
 <body>
@@ -130,61 +40,96 @@
   <input type="text" id="search" placeholder="Search apps...">
 </div>
 
-<div class="apps-container" id="appsContainer">
-  <!-- App cards will appear here -->
+<div class="category-tabs" id="categoryTabs">
+  <button data-category="">All</button>
+  <button data-category="Utility">Utility</button>
+  <button data-category="Weather">Weather</button>
+  <button data-category="Entertainment">Entertainment</button>
+  <button data-category="Productivity">Productivity</button>
 </div>
 
-<footer>
-  Khali App Store 2025
-</footer>
+<div class="apps-container" id="appsContainer"></div>
+
+<div class="pagination" id="pagination"></div>
+
+<footer>Khali App Store 2025</footer>
 
 <script>
-  const apps = [
-    { name: "Calculator", icon: "https://via.placeholder.com/100", description: "Simple calculator", category: "Utility", rating: 4 },
-    { name: "Weather App", icon: "https://via.placeholder.com/100", description: "Check the weather", category: "Weather", rating: 5 },
-    { name: "Music Player", icon: "https://via.placeholder.com/100", description: "Listen to music", category: "Entertainment", rating: 4 },
-    { name: "Notes", icon: "https://via.placeholder.com/100", description: "Take notes quickly", category: "Productivity", rating: 3 },
-    { name: "ToDo List", icon: "https://via.placeholder.com/100", description: "Manage tasks", category: "Productivity", rating: 5 }
-  ];
+const container = document.getElementById('appsContainer');
+const searchInput = document.getElementById('search');
+const categoryTabs = document.getElementById('categoryTabs');
+const paginationDiv = document.getElementById('pagination');
 
-  const container = document.getElementById('appsContainer');
-  const searchInput = document.getElementById('search');
+let currentCategory = '';
+let currentPage = 1;
+let totalPages = 1;
 
-  function displayApps(appList) {
+async function fetchApps() {
+    const query = searchInput.value;
+    const response = await fetch(`/api/apps?search=${encodeURIComponent(query)}&category=${encodeURIComponent(currentCategory)}&page=${currentPage}`);
+    const data = await response.json();
+    totalPages = data.total_pages;
+    displayApps(data.apps);
+    setupPagination();
+}
+
+function displayApps(apps) {
     container.innerHTML = '';
-    appList.forEach(app => {
-      const card = document.createElement('div');
-      card.className = 'app-card';
-      card.innerHTML = `
-        <img src="${app.icon}" alt="${app.name}">
-        <h3>${app.name}</h3>
-        <div class="category">${app.category}</div>
-        <div class="rating">${'★'.repeat(app.rating)}${'☆'.repeat(5 - app.rating)}</div>
-        <p>${app.description}</p>
-        <button onclick="installApp('${app.name}')">Install</button>
-      `;
-      container.appendChild(card);
+    apps.forEach(app => {
+        const card = document.createElement('div');
+        card.className = 'app-card';
+        card.innerHTML = `
+            <img src="${app.icon}" alt="${app.name}">
+            <h3>${app.name}</h3>
+            <div class="category">${app.category}</div>
+            <div class="rating">${'★'.repeat(app.rating)}${'☆'.repeat(5 - app.rating)}</div>
+            <p>${app.description}</p>
+            <button onclick="installApp(${app.id}, this)">Install</button>
+        `;
+        container.appendChild(card);
     });
-  }
+}
 
-  function installApp(appName) {
-    alert(appName + " installation started!");
-  }
+async function installApp(appId, btn) {
+    btn.disabled = true;
+    btn.textContent = "Installing...";
+    await new Promise(r => setTimeout(r, 1500)); // simulate progress
+    const response = await fetch(`/api/install/${appId}`, { method: 'POST' });
+    const result = await response.json();
+    alert(result.message);
+    btn.disabled = false;
+    btn.textContent = "Install";
+}
 
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    const filteredApps = apps.filter(app => app.name.toLowerCase().includes(query) || app.category.toLowerCase().includes(query));
-    displayApps(filteredApps);
-  });
+// Search
+searchInput.addEventListener('input', () => { currentPage = 1; fetchApps(); });
 
-  // Initial display
-  displayApps(apps);
+// Category filter
+categoryTabs.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        categoryTabs.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.getAttribute('data-category');
+        currentPage = 1;
+        fetchApps();
+    });
+});
+
+// Pagination
+function setupPagination() {
+    paginationDiv.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if (i === currentPage) btn.classList.add('active');
+        btn.addEventListener('click', () => { currentPage = i; fetchApps(); });
+        paginationDiv.appendChild(btn);
+    }
+}
+
+// Initial load
+fetchApps();
 </script>
 
 </body>
-<style>html{
- color:darkviolet;
- font-size:25px;
- font-weight:600;
-}
-</style><script>/*Here write your javascript code*/</script></html>
+</html>
