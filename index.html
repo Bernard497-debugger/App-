@@ -21,18 +21,34 @@ footer { text-align:center; padding:15px; background:#eee; margin-top:20px; }
 <header>
 <h1>Khali App Store</h1>
 </header>
-<div class="store">
-{% for app in apps %}
-<div class="card">
-<img src="{{ app.image }}" alt="{{ app.name }}">
-<h2>{{ app.name }}</h2>
-<p>{{ app.description }}</p>
-<a href="{{ app.file }}">Download</a>
-</div>
-{% endfor %}
-</div>
+
+<div class="store"></div>
+
 <footer>
 Khali App Store 2025
 </footer>
+
+<script>
+// Replace this URL with your Render backend API
+const API_URL = "https://your-backend.onrender.com/api/apps";
+
+fetch(API_URL)
+  .then(res => res.json())
+  .then(apps => {
+      const store = document.querySelector(".store");
+      apps.forEach(app => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${app.image}" alt="${app.name}">
+            <h2>${app.name}</h2>
+            <p>${app.description}</p>
+            <a href="${app.file}">Download</a>
+          `;
+          store.appendChild(card);
+      });
+  })
+  .catch(err => console.error("Error fetching apps:", err));
+</script>
 </body>
 </html>
