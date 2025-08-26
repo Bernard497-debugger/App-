@@ -29,7 +29,7 @@ Khali App Store 2025
 </footer>
 
 <script>
-// Replace this URL with your Render backend API
+// Replace with your Render backend API URL
 const API_URL = "https://your-backend.onrender.com/api/apps";
 
 fetch(API_URL)
@@ -40,10 +40,10 @@ fetch(API_URL)
           const card = document.createElement("div");
           card.className = "card";
           card.innerHTML = `
-            <img src="${app.image}" alt="${app.name}">
+            <img src="${API_URL.replace('/api/apps','')}${app.image}" alt="${app.name}">
             <h2>${app.name}</h2>
             <p>${app.description}</p>
-            <a href="${app.file}">Download</a>
+            <a href="${API_URL.replace('/api/apps','')}${app.file}">Download</a>
           `;
           store.appendChild(card);
       });
